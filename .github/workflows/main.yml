@@ -1,13 +1,20 @@
-name: First Workflow
+name: Python Tests
 
 on:
-  push
+  push:
+  pull_request:
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
 
-      - run: echo "Workflow executed"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - run: pip install pytest
+
+      - run: pytest
